@@ -1,0 +1,80 @@
+Chapter 4 javascript:
+
+//Convert array to List
+function arrayToList(array){
+  
+  for(var i = (array.length - 1); i >= 0; i--){
+    var list = {
+    value: array[i],
+      rest: list
+    }
+  }
+  
+  return list;
+}
+
+//Convert list to array
+function listToArray(list){
+  var array = [];
+  for(var node = list; node; node = node.rest){ //stolen from hints
+    array.push(node.value);
+  }
+  
+  return array;
+}
+
+//adds number to passed in list and return a new list
+function prepend(num, list){
+  
+  var array = listToArray(list);
+  array.unshift(num);
+  var newList = arrayToList(array);
+  return newList;
+}
+
+//returns the value of an element at the given position
+function nth(list, position){
+  var value;
+  var counter = 0;
+  for(var node = list; node; node = node.rest){
+    if(counter == position){
+     value = node.value; 
+    }
+    counter++;
+  }
+  
+  return value;
+}
+
+//return the value of an element at the given position
+	//recursive implementation
+function nthRecursive(list, position){
+  if(position == 0){
+   return list.value; 
+  } else {
+    if(list.rest == undefined){
+     return undefined; 
+    }else{
+     return nthRecursive(list.rest, position-1);
+    }   
+  }
+}
+
+//compares two objects and returns if they are equal
+function deepEqual(object1, object2){
+  if((typeof object1 == "object" && object1 != null) && (typeof object2 == "object" && object2 != null)){
+    for (var prop in object1) {
+      if(deepEqual(object1[prop], object2[prop])){
+        continue;
+      } else {
+        return false; 
+      }
+    }
+    return true;
+  } else {
+  	return (object1 === object2);
+  }
+}
+	
+ 
+	
